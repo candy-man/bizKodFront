@@ -2,16 +2,27 @@ import React from 'react';
 import { Modal, Button } from 'antd';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { Table, Tag, Space } from 'antd';
+import { Table } from 'antd';
+import { Collapse, Select } from 'antd';
 
+const { Panel } = Collapse;
+const { Option } = Select;
+const genExtra = () => (
+  <>
+    10 <UserOutlined />
+  </>
+);
 
-export class EventViewModal extends React.Component {
-  state = {
-    loading: false,
-    visible: false,
-  };
+interface ViewModalProp {
+  loading: boolean,
+  visible: boolean,
+  changeVisible: () => void,
+  changeLoading: () => void
+}
 
-  dummyUsers = [
+const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisible, changeLoading }) => {
+
+  const dummyUsers = [
     {
       key: 1,
       name: 'Marko Markovic',
@@ -32,7 +43,7 @@ export class EventViewModal extends React.Component {
     }
   ];
 
-  columns = [
+  const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -56,42 +67,33 @@ export class EventViewModal extends React.Component {
     }
   ];
 
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
 
-  handleOk = () => {
-    this.setState({ loading: true });
+  const handleOk = () => {
+    changeLoading();
     setTimeout(() => {
-      this.setState({ loading: false, visible: false });
+      changeVisible();
+      changeLoading()
     }, 3000);
   };
 
-  handleCancel = () => {
-    this.setState({ visible: false });
+  const handleCancel = () => {
+    changeVisible();
   };
-
-  render() {
-    const { confirm } = Modal;
-    const { visible, loading } = this.state;
+    // const { visible, loading } = this.state;
     return (
       <>
-        <Button type="primary" onClick={this.showModal}>
-          Open Modal with customized footer
-        </Button>
+       
         <Modal
           visible={visible}
           title="Dogadjaj"
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
+          onOk={handleOk}
+          onCancel={handleCancel}
           width={700}
           footer={[
-            <Button key="back" onClick={this.handleCancel}>
+            <Button key="back" onClick={handleCancel}>
               Zatvori
             </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+            <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
               Prijavi se
             </Button>
           ]}
@@ -112,14 +114,19 @@ export class EventViewModal extends React.Component {
             <span>Mapa:</span>
             <p>XXX</p>
           </div>
-          <div>
-            <span>Prijavljeno:</span>
-          </div>
-          <div>
-            <Table dataSource={this.dummyUsers} columns={this.columns} />;
-          </div>
+          <Collapse
+            defaultActiveKey={[]}
+            expandIconPosition='right'
+          >
+            <Panel header="Prijavljeno:" key="1" extra={genExtra()}>
+              <div>
+                <Table dataSource={dummyUsers} columns={columns}/>;
+              </div>
+            </Panel>
+          </Collapse>
         </Modal>
       </>
     );
-  }
 }
+
+export default EventViewModal;

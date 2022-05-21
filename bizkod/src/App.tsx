@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { EventViewModal } from './modals/EventViewModal';
+// import { EventViewModal } from './modals/EventViewModal';
 import EventCard from './components/EventCard';
 import NavBar from './components/NavBar';
 import Routes from './components/Routes';
@@ -14,6 +14,7 @@ function App() {
       <NavBar />
       <FormModal setShow={setShow} show={show} hasData={true} />
       {/* <Routes /> */}
+      <Routes />
     </div>
   );
 }
