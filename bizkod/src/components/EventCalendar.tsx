@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {Calendar, momentLocalizer} from "react-big-calendar";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
+import EventViewModal from "../modals/EventViewModal";
+interface Props{
+}
 
-interface Props {};
+const EventCalendar: React.FC<Props> = ({}) =>{
+  const [visible, setVisible]=useState(false);
+  const [events, setEvents] = useState([]);
+  const [event, setEvent]=useState();
 
-const EventCalendar: React.FC<Props> = () =>{
+  useEffect(() => {
+    async function FetchEvents() {
+      if(!events){
+        await fetch('http://bizkodapi.local/api/Events/calendar').then(res => res.json()).then(setEvents)
+      }
+    }
+    FetchEvents()
+  }, [events])
+
   const dummyEvents= [
     {
       'title': 'All Day Event very long title',
@@ -90,6 +104,7 @@ return(
       defaultDate={new Date()}
       onSelectEvent={(value)=>console.log(value)}
     />
+    {/* <EventViewModal data={{title:''}} loading={false} visible={visible} changeLoading={()=>{}} changeVisible={()=>setVisible(!visible)}/> */}
   </div>
   )
 }
