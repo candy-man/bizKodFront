@@ -11,11 +11,11 @@ const EventListComponent: React.FC<EventListProps> = ({ eventsList, listTitle })
 
     return (
         <>
-            <h4 className="subsection">{listTitle}</h4>
+            <h2 className="subsection">{listTitle}</h2>
             <div className="listOfEvents">
                 {
                     eventsList.map((event)=> {
-                        return <EventCard event={event} ></EventCard>
+                        return <EventCard key={event.id} event={event} ></EventCard>
                     })
                 }
             </div>
