@@ -3,10 +3,52 @@
   justify-content: space-between;
   align-items: center;
   padding-inline: 10px;
-  margin-block: 30px;
-  background-color: green;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  height: 70px;
 }
 
 .menu-links {
   display: flex;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.menu-links li {
+  margin-inline: 15px;
+}
+
+.menu-links li:hover {
+  color: #3590ff;
+}
+
+.menu-links li span {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.menu-links .dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 6px;
+  top: 52px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  width: 100px;
+  padding-left: 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.menu-links .dropdown li {
+  background-color: white;
+  cursor: pointer;
+  margin: 0;
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.banner {
+  width: 100%;
 }
