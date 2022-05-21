@@ -1,0 +1,49 @@
+.eventCard{
+    display: flex;
+    width: 50%;
+    height: 190px;
+    border: 1px solid black;
+    position:relative;
+    margin-inline: auto;
+}
+
+.eventCard-right{
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    margin-inline: 20px;
+}
+
+.eventCard-right-info{
+    flex: 1;
+}
+
+.eventCard-right-info div{
+    display: flex;
+    flex-direction: column;
+}
+
+.label{
+  
+
+}
+.event-values{
+    font-size:24px;
+    font-weight: 600;
+}
+
+.eventCard-buttonContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.event-img{
+    height: -webkit-fill-available;
+}
+
+.ant-btn{
+    margin-block: 10px;
+}
+
+
