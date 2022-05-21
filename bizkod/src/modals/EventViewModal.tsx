@@ -17,10 +17,16 @@ interface ViewModalProp {
   loading: boolean,
   visible: boolean,
   changeVisible: () => void,
-  changeLoading: () => void
+  changeLoading: () => void,
+  data:{
+    title: String
+    startDate: Date,
+    endDate: Date,
+    desc: String,
+  }
 }
 
-const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisible, changeLoading }) => {
+const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisible, changeLoading, data }) => {
 
   const dummyUsers = [
     {
@@ -79,6 +85,15 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
   const handleCancel = () => {
     changeVisible();
   };
+
+// let year = new Intl.DateTimeFormat('sr', { year: 'numeric' }).format(data.startDate);
+// let month = new Intl.DateTimeFormat('sr', { month: 'numeric' }).format(data.startDate);
+// let day = new Intl.DateTimeFormat('sr', { day: '2-digit' }).format(data.startDate);
+let date=data.startDate.toLocaleString('sr-SR')
+let secondDate;
+if(data.startDate.getTime()!==data.endDate.getTime()){
+  secondDate=data.endDate.toLocaleString('sr-SR')
+}
     // const { visible, loading } = this.state;
     return (
       <>
@@ -100,15 +115,15 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
         >
           <div>
             <span>Naziv:</span>
-            <h1>Neki event name</h1>
+            <h1>{data.title}</h1>
           </div>
           <div>
             <span>Datum i vreme:</span>
-            <h3>11.2.3</h3>
+            <h3>{date} {secondDate?`- ${secondDate}`:''}</h3>
           </div>
           <div>
             <span>Opis:</span>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p>{data.desc}</p>
           </div>
           <div>
             <span>Mapa:</span>
@@ -120,7 +135,7 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
           >
             <Panel header="Prijavljeno:" key="1" extra={genExtra()}>
               <div>
-                <Table dataSource={dummyUsers} columns={columns}/>;
+                <Table pagination={false} dataSource={dummyUsers} columns={columns}/>
               </div>
             </Panel>
           </Collapse>

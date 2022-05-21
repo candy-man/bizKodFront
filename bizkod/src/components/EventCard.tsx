@@ -23,7 +23,12 @@ const EventCard: React.FC<EventCardProps> = ({ id, name, date, type }) => {
   const changeLoading = () => {
     setLoading(!loading);
   }
-
+let data={
+  title:'Event',
+  startDate: new Date(),
+  endDate: new Date(),
+  desc:''
+}
   return (
     <div className="eventCard">
       <div className="eventCard-left">
@@ -56,7 +61,7 @@ const EventCard: React.FC<EventCardProps> = ({ id, name, date, type }) => {
         </div>
       </div>
 
-      <EventViewModal changeVisible={changeVisible} changeLoading={changeLoading} visible={visible} loading={loading}></EventViewModal>
+      <EventViewModal changeVisible={changeVisible} changeLoading={changeLoading} visible={visible} loading={loading} data={data}></EventViewModal>
     </div>
   );
 
