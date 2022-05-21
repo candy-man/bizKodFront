@@ -19,12 +19,23 @@
 }
 
 .menu-links li:hover {
-  color: #3590ff;
+  color: #3cb0ef;
 }
 
 .menu-links li span {
   font-size: 20px;
   cursor: pointer;
+}
+
+.links-container {
+  display: flex;
+  /* flex-direction: column; */
+  /* align-items: flex-end; */
+  justify-content: center;
+}
+
+.links-container .ant-btn-ghost {
+  margin-right: 10px;
 }
 
 .menu-links .dropdown {
@@ -52,4 +63,9 @@
 
 .banner {
   width: 100%;
+}
+
+.logoPicture {
+  padding: 10px;
+  height: -webkit-fill-available;
 }

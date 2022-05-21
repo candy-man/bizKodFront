@@ -1,3 +1,8 @@
 .modal .ant-btn {
   margin-block: 0;
 }
+
+.ant-modal {
+  border-radius: 5px;
+  overflow: hidden;
+}
