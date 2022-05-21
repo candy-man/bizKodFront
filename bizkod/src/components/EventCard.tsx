@@ -41,12 +41,12 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
   }, [state])
 
 let data={
-  title:'Event',
-  startDate: new Date(),
-  endDate: new Date(),
-  desc:''
+  title: event ? event.name : 'Event',
+  startDate: event ? new Date(event.startDate) : new Date(),
+  endDate: event ? new Date(event.startDate) : new Date(),
+  desc: ''
 }
-  return (
+return (
     <div className="eventCard">
       <div className="eventCard-left">
         <img className='event-img' src="/images/placeholder.png" alt="event image" />
@@ -63,7 +63,7 @@ let data={
           <div className="eventCard-right-info flex-column-jcenter">
             <div>
               <span>Datum:</span>
-              <h4>{event.startDate}</h4>
+              <h4>{data.startDate.toLocaleDateString('sr-SR')}</h4>
             </div>
             <div>
               <span>Tip:</span>
