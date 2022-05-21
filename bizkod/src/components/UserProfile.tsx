@@ -3,6 +3,8 @@ import EventCard from '../components/EventCard';
 import { useLocation, useParams } from "react-router-dom";
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
+import EventListComponent from './EventsListComponent';
+import { Events } from '../interfaces/interfaces';
 
 const dummyUserData = [{
     username: 'markomarkovic@infostud.com',
@@ -12,17 +14,23 @@ const dummyUserData = [{
     sector: 'Prodaja',
     selectedEvents: [
         {
-            id: 2,
+            id: '33333',
             name: 'Stopama grada kroz period secesije',
-            date: '22.03.2022.',
-            type: 'Tura',
+            startDate: '22.03.2022.',
+            endDate: 'ssss',
+            location: 'ssss',
+            eventTypeId: 'icvkjhdskfl',
+            eventType: 'Tura',
             status: 'pending'
         },
         {
-            id: 3,
-            name: 'Vinska ruta',
-            date: '22.03.2022.',
-            type: 'Tura',
+            id: '4444',
+            name: 'Vinska tura',
+            startDate: '22.03.2022.',
+            endDate: 'ssss',
+            location: 'ssss',
+            eventTypeId: 'icvkjhdskfl',
+            eventType: 'Tura',
             status: 'approved'
         }
     ],
@@ -30,13 +38,6 @@ const dummyUserData = [{
     ]
 }];
 
-interface SelectedEvents {
-    id: number;
-    name: string;
-    date: string;
-    type: string;
-    status: string;
-}
 
 interface props { };
 
@@ -44,16 +45,14 @@ const UserProfile: React.FC<props> = ({ }) => {
 
     let { userId } = useParams();
 
-    const [pendingEvents, setPendingEvents] = useState<SelectedEvents[]>([]);
-    const [selectedEvents, setSelectedEvents] = useState<SelectedEvents[]>([]);
+    const [pendingEvents, setPendingEvents] = useState<Events[]>([]);
+    const [selectedEvents, setSelectedEvents] = useState<Events[]>([]);
 
     useEffect(() => {
         let pending = [...dummyUserData[0].selectedEvents.filter((event) => event.status === 'pending')];
         setPendingEvents(pending);
-        console.log(pendingEvents, 'pending');
         let selected = [...dummyUserData[0].selectedEvents.filter((event) => event.status === 'approved')];
         setSelectedEvents(selected);
-        console.log(selectedEvents, 'selected');
     }, []);
 
     return (
@@ -83,21 +82,15 @@ const UserProfile: React.FC<props> = ({ }) => {
             <div className="eventsContainer">
                 {pendingEvents ?
                     <>
-                        <h4 className="subsection">Na čekanju</h4>
                         <div>
-                            {pendingEvents.map((event) => {
-                                return <EventCard key={event.id} id={event.id} name={event.name} date={event.date} type={event.type}></EventCard>
-                            })}
+                           <EventListComponent eventsList={pendingEvents} listTitle={"Na čekanju"}></EventListComponent>
                         </div>
                     </>
                     :
                     <></>
                 }
-                <h4 className="subsection">Odabrani događaji</h4>
                 <div>
-                    {dummyUserData[0]?.selectedEvents?.map((event) => {
-                        return <EventCard key={event.id} id={event.id} name={event.name} date={event.date} type={event.type}></EventCard>
-                    })}
+                    <EventListComponent eventsList={selectedEvents} listTitle={"Odabrani događaji"}></EventListComponent>
                 </div>
             </div>
         </div>

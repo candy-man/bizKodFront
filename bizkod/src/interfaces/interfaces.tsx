@@ -6,6 +6,6 @@ export interface Events {
     endDate: string,
     location: string,
     eventTypeId: string,
-    eventType: string
+    eventType: string,
+    status: string
 }
-
