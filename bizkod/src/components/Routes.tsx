@@ -14,7 +14,7 @@ const RoutesPages: React.FC<Props> = () =>{
       <Routes>
       <Route path='/' element={<Home/>}>
         </Route>
-        <Route path='/events' element={<EventCalendar/>}>
+        <Route path='/dogadjaji' element={<EventCalendar/>}>
         </Route>
       </Routes>
       
