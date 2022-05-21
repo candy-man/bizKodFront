@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EventViewModal from '../modals/EventViewModal';
 import { UserOutlined } from '@ant-design/icons';
 import { Events } from '../interfaces/interfaces';
@@ -7,9 +7,10 @@ import { Events } from '../interfaces/interfaces';
 
 interface EventCardProps {
   event: Events;
+  state: string;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
 
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -22,6 +23,29 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     setLoading(!loading);
   }
 
+  const signUpForEvent = () => {
+    // request prijavi se za event
+  }
+  const cancelEvent = () => {
+    // request otkazi event
+  } 
+   
+  const signOutOfEvent = () => {
+    // request odjavi se sa eventa
+  }  
+
+  useEffect(() => {
+    switch (state) {
+
+    }
+  }, [state])
+
+let data={
+  title:'Event',
+  startDate: new Date(),
+  endDate: new Date(),
+  desc:''
+}
   return (
     <div className="eventCard">
       <div className="eventCard-left">
@@ -47,14 +71,17 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             </div>
           </div>
           <div className='eventCard-buttonContainer flex-column-jcenter'>
-            <Button type="primary">Prijavi se</Button>
+            {state === 'selected' ? <Button type="primary" onClick={signOutOfEvent}>Odjavi se</Button> : <></>}
+            {state === 'awaiting' ? <Button type="primary" onClick={cancelEvent}>Otkaži</Button> : <></>}
+            {state === 'home' ? <Button type="primary" onClick={signUpForEvent}>Prijavi se</Button> : <></>}
+            {state === 'events' ? <Button type="primary" onClick={signUpForEvent}>Prijavi se</Button> : <></>}
             <Button type='ghost' onClick={changeVisible}>Detalji</Button>
           </div>
 
         </div>
       </div>
 
-      <EventViewModal changeVisible={changeVisible} changeLoading={changeLoading} visible={visible} loading={loading}></EventViewModal>
+      <EventViewModal changeVisible={changeVisible} changeLoading={changeLoading} visible={visible} loading={loading} data={data}></EventViewModal>
     </div>
   );
 

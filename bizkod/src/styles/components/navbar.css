@@ -53,3 +53,8 @@
 .banner {
   width: 100%;
 }
+
+.logoPicture {
+  padding: 10px;
+  height: -webkit-fill-available;
+}

@@ -13,7 +13,7 @@ const NavBar: React.FC<Props> = ({}) => {
 
   return (
     <nav className="navbar">
-      <img src="/images/logo.png" alt="logo" />
+      <img className="logoPicture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_5S3Qwkc1DetbZGgcP1FTMjGFm4Poi_W7RzN3z_xP71BohZ0gHQShg2HveYtnQcADI_A&usqp=CAU" alt="logo" />
       <ul className="menu-links">
         <li>
           <span>

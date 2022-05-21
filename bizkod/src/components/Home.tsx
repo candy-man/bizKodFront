@@ -22,7 +22,7 @@ const Home: React.FC<Props> = () => {
   return (
     <div>
       <Banner />
-      <EventListComponent eventsList={recentEvents} listTitle='Predstojeći događaji'></EventListComponent>
+      <EventListComponent eventsList={recentEvents} listTitle='Predstojeći događaji' state='home'></EventListComponent>
     </div>
   );
 };
