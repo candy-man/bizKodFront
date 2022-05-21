@@ -6,7 +6,9 @@ import {
 import EventCalendar from './EventCalendar';
 import Home from './Home';
 
-const RoutesPages=()=>{
+interface Props {};
+
+const RoutesPages: React.FC<Props> = () =>{
     return(
         <Router>
       <Routes>

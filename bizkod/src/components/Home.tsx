@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
-import EventCalendar from './EventCalendar';
-import NavBar from './NavBar';
+import React from 'react';
+// import { Button, Modal } from 'antd';
+// import EventCalendar from './EventCalendar';
+// import NavBar from './NavBar';
 import Banner from './Banner';
 import EventCard from './EventCard';
 
-const Home = () => {
-  const [visibleModal, setVisibleModal] = useState(false);
+interface Props {};
+
+const Home: React.FC<Props> = () => {
 
   return (
     <div>

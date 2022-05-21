@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <NavBar />
       <EventCard name={'Event'} type="Event" date="22.02.2022." />
-      <EventViewModal></EventViewModal>
+      <EventViewModal/>
       <Routes />
     </div>
   );
