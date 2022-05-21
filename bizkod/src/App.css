@@ -1,15 +1,22 @@
 @import './styles/components/eventcard.css';
 @import './styles/components/antd.css';
+<<<<<<< HEAD
 @import './styles/components/eventCalendar.css';
+=======
+@import './styles/components/navbar.css';
+>>>>>>> b69e537f9f6b3fe14453ea33b6ac32d0adf59885
 
-.flex-column{
-    display: flex;  
-    flex-direction: column;
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
-.flex-column-jcenter{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.flex-column-jcenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b69e537f9f6b3fe14453ea33b6ac32d0adf59885
