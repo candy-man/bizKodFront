@@ -66,14 +66,10 @@ const UserProfile: React.FC<props> = ({ }) => {
                         }
                     </div>
                     <div className="userInfo">
-                        <h2>{dummyUserData[0].name}</h2>
+                        <h1>{dummyUserData[0].name}</h1>
+                        <span className='profileLabel'>{dummyUserData[0].sector}</span>
                         <div>
-                            <span>Kontakt:</span>
-                            <span className='profileLabel'>{dummyUserData[0].contact}</span>
-                        </div>
-                        <div>
-                            <span>Sektor:</span>
-                            <span className='profileLabel'>{dummyUserData[0].sector}</span>
+                            <span className='profileLabel'>Kontakt: {dummyUserData[0].contact}</span>
                         </div>
                     </div>
 
@@ -83,14 +79,14 @@ const UserProfile: React.FC<props> = ({ }) => {
                 {pendingEvents ?
                     <>
                         <div>
-                           <EventListComponent eventsList={pendingEvents} listTitle={"Na čekanju"}></EventListComponent>
+                           <EventListComponent eventsList={pendingEvents} listTitle={"Na čekanju"} state={"awaiting"}></EventListComponent>
                         </div>
                     </>
                     :
                     <></>
                 }
                 <div>
-                    <EventListComponent eventsList={selectedEvents} listTitle={"Odabrani događaji"}></EventListComponent>
+                    <EventListComponent eventsList={selectedEvents} listTitle={"Odabrani događaji"} state={"selected"}></EventListComponent>
                 </div>
             </div>
         </div>

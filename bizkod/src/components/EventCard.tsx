@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EventViewModal from '../modals/EventViewModal';
 import { UserOutlined } from '@ant-design/icons';
 import { Events } from '../interfaces/interfaces';
@@ -7,9 +7,10 @@ import { Events } from '../interfaces/interfaces';
 
 interface EventCardProps {
   event: Events;
+  state: string;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
 
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -21,6 +22,23 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const changeLoading = () => {
     setLoading(!loading);
   }
+
+  const signUpForEvent = () => {
+    // request prijavi se za event
+  }
+  const cancelEvent = () => {
+    // request otkazi event
+  } 
+   
+  const signOutOfEvent = () => {
+    // request odjavi se sa eventa
+  }  
+
+  useEffect(() => {
+    switch (state) {
+
+    }
+  }, [state])
 
   return (
     <div className="eventCard">
@@ -47,7 +65,10 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             </div>
           </div>
           <div className='eventCard-buttonContainer flex-column-jcenter'>
-            <Button type="primary">Prijavi se</Button>
+            {state === 'selected' ? <Button type="primary" onClick={signOutOfEvent}>Odjavi se</Button> : <></>}
+            {state === 'awaiting' ? <Button type="primary" onClick={cancelEvent}>Otkaži</Button> : <></>}
+            {state === 'home' ? <Button type="primary" onClick={signUpForEvent}>Prijavi se</Button> : <></>}
+            {state === 'events' ? <Button type="primary" onClick={signUpForEvent}>Prijavi se</Button> : <></>}
             <Button type='ghost' onClick={changeVisible}>Detalji</Button>
           </div>
 
