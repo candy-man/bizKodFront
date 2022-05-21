@@ -120,7 +120,7 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
           >
             <Panel header="Prijavljeno:" key="1" extra={genExtra()}>
               <div>
-                <Table dataSource={dummyUsers} />;
+                <Table dataSource={dummyUsers} columns={columns}/>;
               </div>
             </Panel>
           </Collapse>

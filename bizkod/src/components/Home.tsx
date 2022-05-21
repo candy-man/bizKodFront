@@ -12,11 +12,11 @@ const Home: React.FC<Props> = () => {
   return (
     <div>
       <Banner />
-      <EventCard name="Event" type="Event" date="11.02.2022." />
-      <EventCard name="Event" type="Event" date="11.02.2022." />
-      <EventCard name="Event" type="Event" date="11.02.2022." />
-      <EventCard name="Event" type="Event" date="11.02.2022." />
-      <EventCard name="Event" type="Event" date="11.02.2022." />
+      <EventCard id={1} name="Event" type="Event" date="11.02.2022." />
+      <EventCard id={2} name="Event" type="Event" date="11.02.2022." />
+      <EventCard id={3} name="Event" type="Event" date="11.02.2022." />
+      <EventCard id={4} name="Event" type="Event" date="11.02.2022." />
+      <EventCard id={5} name="Event" type="Event" date="11.02.2022." />
     </div>
   );
 };

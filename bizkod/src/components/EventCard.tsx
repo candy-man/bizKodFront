@@ -5,12 +5,13 @@ import { UserOutlined } from '@ant-design/icons';
 
 
 interface EventCardProps {
+  id: number
   name: string;
   date: string;
   type: string;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ name, date, type }) => {
+const EventCard: React.FC<EventCardProps> = ({ id, name, date, type }) => {
 
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -54,7 +55,6 @@ const EventCard: React.FC<EventCardProps> = ({ name, date, type }) => {
 
         </div>
       </div>
-
 
       <EventViewModal changeVisible={changeVisible} changeLoading={changeLoading} visible={visible} loading={loading}></EventViewModal>
     </div>
