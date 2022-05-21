@@ -5,10 +5,11 @@ import Map, { Marker } from 'react-map-gl';
 import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import uuid from 'uuidv4';
+import { Switch } from 'antd';
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
+  labelCol: { span: 3 },
+  wrapperCol: { span: 32 },
 };
 const MAPBOX_TOKEN =
   'pk.eyJ1Ijoic2FzYWJpemtvZCIsImEiOiJjbDNnN2pwaWEwemU5M2ZwcnJyYmlkejI2In0.DtWqRLwaTKgAlUuQOenTUA';
@@ -22,7 +23,7 @@ const FormModal = ({ show, setShow, hasData }) => {
   });
 
   const [fileList, setFileList] = useState([]);
-  const [search, setSearch] = useState(false);
+  const [search, setSearch] = useState(true);
   const [markers, setMarkers] = useState([]);
   const [image, setImage] = useState('');
   const [lang, setLang] = useState(0);
@@ -171,7 +172,17 @@ const FormModal = ({ show, setShow, hasData }) => {
               value={form.description}
             />
           </Form.Item>
-
+          <Switch
+            onClick={() => {
+              setSearch(!search);
+              setForm((prevState) => ({ ...prevState, cords: [] }));
+            }}
+            unCheckedChildren="Tura"
+            checkedChildren="Događaj"
+            checked={search}
+            autoFocus="Događaj"
+            style={{ marginBottom: '10px' }}
+          />
           {search && (
             <MapGL
               ref={mapRef}
