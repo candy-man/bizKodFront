@@ -2,16 +2,14 @@ import { Button } from 'antd';
 import React, { useState } from 'react';
 import EventViewModal from '../modals/EventViewModal';
 import { UserOutlined } from '@ant-design/icons';
+import { Events } from '../interfaces/interfaces';
 
 
 interface EventCardProps {
-  id: number
-  name: string;
-  date: string;
-  type: string;
+  event: Events;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ id, name, date, type }) => {
+const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -35,17 +33,17 @@ const EventCard: React.FC<EventCardProps> = ({ id, name, date, type }) => {
             <span>Naziv:</span>
             <span>35 <UserOutlined /></span>
           </div>
-          <h2>{name}</h2>
+          <h2>{event.name}</h2>
         </div>
         <div className="content">
           <div className="eventCard-right-info flex-column-jcenter">
             <div>
               <span>Datum:</span>
-              <h4>{date}</h4>
+              <h4>{event.startDate}</h4>
             </div>
             <div>
               <span>Tip:</span>
-              <h4>{type}</h4>
+              <h4>{event.eventType}</h4>
             </div>
           </div>
           <div className='eventCard-buttonContainer flex-column-jcenter'>
