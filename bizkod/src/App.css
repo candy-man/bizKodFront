@@ -1,5 +1,6 @@
 @import './styles/components/eventcard.css';
 @import './styles/components/antd.css';
+@import './styles/components/eventCalendar.css';
 
 .flex-column{
     display: flex;  
@@ -11,5 +12,4 @@
     flex-direction: column;
     justify-content: center;
 }
-
 

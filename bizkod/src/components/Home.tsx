@@ -1,14 +1,24 @@
-import React, {useEffect} from "react";
-import { Link } from "react-router-dom";
-import { Button } from "antd";
+import React, {useState} from "react";
+import { Button, Modal } from "antd";
+import EventCalendar from "./EventCalendar";
 
 const Home=()=>{
 
+const [visibleModal, setVisibleModal]=useState(false);
+
     return(
        <div>
-        <Button>
+        <Button onClick={()=>setVisibleModal(true)}>
             Events
         </Button>
+        <Modal
+        className="eventModal"
+        visible={visibleModal}
+        footer=''
+        onCancel={()=>setVisibleModal(false)}
+        >
+            <EventCalendar/>
+        </Modal>
       </div>
     )
 }
