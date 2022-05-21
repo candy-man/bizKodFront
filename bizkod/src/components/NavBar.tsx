@@ -1,19 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { CaretUpFilled, CaretDownFilled } from '@ant-design/icons';
 
 interface Props {}
 
 const NavBar: React.FC<Props> = ({}) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const logOut = () => {
+    console.log('logging out');
+  };
+
   return (
     <nav className="navbar">
       <img src="/images/logo.png" alt="logo" />
       <ul className="menu-links">
         <li>
-          <a href="#">Home</a>
+          <span>
+            <a href="/">Početna strana</a>
+          </span>
         </li>
         <li>
-          <a href="#">Event</a>
+          <span>
+            <a href="/dogadjaji">Događaji</a>
+          </span>
         </li>
-        <li></li>
+        <li
+          style={{ display: 'flex', alignItems: 'center' }}
+          onClick={() => setShowDropdown(!showDropdown)}
+        >
+          <span>Profil</span>
+          <CaretDownFilled />
+        </li>
+        {showDropdown && (
+          <ul className="dropdown">
+            <li>
+              <a href="#">Vidi profil</a>
+            </li>
+            <li onClick={logOut}>Odjavi se</li>
+          </ul>
+        )}
       </ul>
     </nav>
   );

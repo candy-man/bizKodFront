@@ -3,7 +3,7 @@
   width: 50%;
   height: 190px;
   position: relative;
-  margin-inline: auto;
+  margin: 30px auto;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 10px;
   overflow: hidden;

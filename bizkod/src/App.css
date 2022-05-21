@@ -1,5 +1,6 @@
 @import './styles/components/eventcard.css';
 @import './styles/components/antd.css';
+@import './styles/components/eventCalendar.css';
 @import './styles/components/navbar.css';
 
 .flex-column {

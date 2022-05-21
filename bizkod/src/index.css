@@ -18,6 +18,9 @@ a {
   color: unset;
   text-decoration: none;
 }
+a:hover {
+  color: unset;
+}
 
 li {
   list-style-type: none;

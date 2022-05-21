@@ -7,12 +7,13 @@ import moment from 'moment'
 const EventCalendar=()=>{
 
 return(
-    <div style={{ height: 700 }}>
+    <div style={{ height: 750 }}>
     <Calendar
+    style={{marginRight:'15px'}}
       localizer={momentLocalizer(moment)}
       events={events}
       step={60}
-      defaultDate={new Date(2022, 3, 1)}
+      defaultDate={new Date()}
       onSelectEvent={(value)=>console.log(value)}
     />
   </div>
