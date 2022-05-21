@@ -17,8 +17,7 @@ const FormModal = ({ show, setShow, hasData }) => {
     name: '',
     type: '',
     description: '',
-    longtitude: '',
-    latitude: '',
+    cords: [],
     users: [],
   });
 
@@ -44,8 +43,12 @@ const FormModal = ({ show, setShow, hasData }) => {
       });
       return;
     }
-
-    console.log('data is being sent');
+    form.cords = form.cords.filter((item, idx) => {
+      if (idx % 2 == 1) {
+        return item;
+      }
+    });
+    console.log(form);
     notification.success({
       placement: 'bottomRight',
       message: 'Uspesno dodat događaj.',
@@ -123,18 +126,13 @@ const FormModal = ({ show, setShow, hasData }) => {
     if (search) {
       setForm((prevState) => ({
         ...prevState,
-        longtitude: viewport.longitude,
-        latitude: viewport.latitude,
+        cords: [
+          { longtitude: viewport.longitude, latitude: viewport.latitude },
+        ],
       }));
     }
   }, [viewport]);
 
-  useEffect(() => {
-    console.log(markers);
-  }, [markers]);
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
   return (
     <div>
       <Modal
@@ -203,17 +201,20 @@ const FormModal = ({ show, setShow, hasData }) => {
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 mapStyle="mapbox://styles/mapbox/streets-v9"
                 onClick={(value) => {
-                  // setLang(value.lngLat[0]);
-                  // setLat(value.lngLat[1]);
+                  console.log('pozvano');
                   let obj = {
                     longtitude: value.lngLat[0],
                     latitude: value.lngLat[1],
                   };
-                  setMarkers((prevState) => [...prevState, obj]);
+
+                  setForm((prevState) => ({
+                    ...prevState,
+                    cords: [...prevState.cords, obj],
+                  }));
                 }}
               >
-                {markers.length > 0 &&
-                  markers.map((marker, idx) => {
+                {form.cords.length > 0 &&
+                  form.cords.map((marker, idx) => {
                     return (
                       <Marker
                         key={idx}
