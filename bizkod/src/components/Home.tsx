@@ -3,7 +3,7 @@ import { Button, Modal } from 'antd';
 import EventCalendar from './EventCalendar';
 import NavBar from './NavBar';
 import Banner from './Banner';
-import EventCard from './event';
+import EventCard from './EventCard';
 
 const Home = () => {
   const [visibleModal, setVisibleModal] = useState(false);
