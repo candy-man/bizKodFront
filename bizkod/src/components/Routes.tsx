@@ -6,13 +6,15 @@ import {
 import EventCalendar from './EventCalendar';
 import Home from './Home';
 
-const RoutesPages=()=>{
+interface Props {};
+
+const RoutesPages: React.FC<Props> = () =>{
     return(
         <Router>
       <Routes>
       <Route path='/' element={<Home/>}>
         </Route>
-        <Route path='/events' element={<EventCalendar/>}>
+        <Route path='/dogadjaji' element={<EventCalendar/>}>
         </Route>
       </Routes>
       

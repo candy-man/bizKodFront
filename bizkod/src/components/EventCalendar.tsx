@@ -4,7 +4,9 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import events from "./Events";
 import moment from 'moment'
 
-const EventCalendar=()=>{
+interface Props {};
+
+const EventCalendar: React.FC<Props> = () =>{
 
 return(
     <div style={{ height: 750 }}>
