@@ -33,20 +33,20 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
       key: 1,
       name: 'Marko Markovic',
       sektor: 'Razvoj',
-      slika: ''
+      slika: '',
     },
     {
       key: 2,
       name: 'Sanja Markovic',
       sektor: 'Prodaja',
-      slika: ''
+      slika: '',
     },
     {
       key: 3,
       name: 'Jovana Markovic',
       sektor: 'Polovni',
-      slika: ''
-    }
+      slika: '',
+    },
   ];
 
   const columns = [
@@ -55,30 +55,29 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
       dataIndex: 'name',
       key: 'name',
       render: (name: string) => {
-        return <h3>{name}</h3>
-      }
+        return <h3>{name}</h3>;
+      },
     },
     {
       title: 'Sektor',
       dataIndex: 'Sektor',
-      key: 'sektor'
+      key: 'sektor',
     },
     {
       title: 'Slika',
       dataIndex: 'slika',
       key: 'slika',
       render: () => {
-        return <Avatar size={40} icon={<UserOutlined />} />
-      }
-    }
+        return <Avatar size={40} icon={<UserOutlined />} />;
+      },
+    },
   ];
-
 
   const handleOk = () => {
     changeLoading();
     setTimeout(() => {
       changeVisible();
-      changeLoading()
+      changeLoading();
     }, 3000);
   };
 

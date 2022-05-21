@@ -1,22 +1,28 @@
-import React from 'react';
-// import { Button, Modal } from 'antd';
-// import EventCalendar from './EventCalendar';
-// import NavBar from './NavBar';
+import { getEventListeners } from 'events';
+import React, { useEffect, useState } from 'react';
+import { Events } from '../interfaces/interfaces';
 import Banner from './Banner';
-import EventCard from './EventCard';
+import EventListComponent from './EventsListComponent';
 
-interface Props {};
+interface Props { };
 
 const Home: React.FC<Props> = () => {
+
+  const [recentEvents, setEvents] = useState<Events[]>([]);
+
+  useEffect(
+    () => {
+      const getEvents = async () => {
+        await fetch('http://bizkodapi.local/api/Events').then(res => res.json()).then(data => setEvents(data));
+      };
+      getEvents();
+    }, []
+  )
 
   return (
     <div>
       <Banner />
-      <EventCard id={1} name="Event" type="Event" date="11.02.2022." />
-      <EventCard id={2} name="Event" type="Event" date="11.02.2022." />
-      <EventCard id={3} name="Event" type="Event" date="11.02.2022." />
-      <EventCard id={4} name="Event" type="Event" date="11.02.2022." />
-      <EventCard id={5} name="Event" type="Event" date="11.02.2022." />
+      <EventListComponent eventsList={recentEvents} listTitle='Predstojeći događaji'></EventListComponent>
     </div>
   );
 };
