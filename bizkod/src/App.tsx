@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <EventCard name={'Event'} type="Event" date="22.02.2022." />
+      {/* <EventCard name={'Event'} type="Event" date="22.02.2022." /> */}
       <Routes />
     </div>
   );

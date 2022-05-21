@@ -2,6 +2,7 @@
 @import './styles/components/antd.css';
 @import './styles/components/eventCalendar.css';
 @import './styles/components/navbar.css';
+@import './styles//components/event.css';
 
 .flex-column {
   display: flex;
