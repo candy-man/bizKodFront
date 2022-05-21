@@ -1,5 +1,14 @@
-@import "antd/dist/antd.css";
+@import './styles/components/eventcard.css';
+@import './styles/components/antd.css';
+@import './styles/components/navbar.css';
 
-.subtitle {
-  
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-column-jcenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
