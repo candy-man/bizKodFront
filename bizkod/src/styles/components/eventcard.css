@@ -62,3 +62,9 @@
 .ant-btn {
   margin-block: 10px;
 }
+
+@media screen and (max-width: 1000px) {
+  .eventCard {
+    width: 100%;
+  }
+}

@@ -2,6 +2,7 @@
 @import './styles/components/antd.css';
 @import './styles/components/eventCalendar.css';
 @import './styles/components/navbar.css';
+@import './styles/components/userProfile.css';
 
 .flex-column {
   display: flex;
@@ -12,4 +13,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.App {
+  min-width: 600px;
 }

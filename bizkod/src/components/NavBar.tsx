@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CaretUpFilled, CaretDownFilled } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 interface Props {}
 
@@ -33,10 +34,12 @@ const NavBar: React.FC<Props> = ({}) => {
         </li>
         {showDropdown && (
           <ul className="dropdown">
-            <li>
-              <a href="#">Vidi profil</a>
+            <li style={{width: '200px'}}>
+              <Link to='/profil/2'>
+                Vidi profil
+              </Link>
             </li>
-            <li onClick={logOut}>Odjavi se</li>
+            <li  style={{width: '200px'}} onClick={logOut}>Odjavi se</li>
           </ul>
         )}
       </ul>
