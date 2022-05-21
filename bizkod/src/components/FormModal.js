@@ -172,17 +172,31 @@ const FormModal = ({ show, setShow, hasData }) => {
               value={form.description}
             />
           </Form.Item>
-          <Switch
-            onClick={() => {
-              setSearch(!search);
-              setForm((prevState) => ({ ...prevState, cords: [] }));
-            }}
-            unCheckedChildren="Tura"
-            checkedChildren="Događaj"
-            checked={search}
-            autoFocus="Događaj"
-            style={{ marginBottom: '10px' }}
-          />
+          <div className="flex-align">
+            <Switch
+              onClick={() => {
+                setSearch(!search);
+                setForm((prevState) => ({ ...prevState, cords: [] }));
+              }}
+              unCheckedChildren="Tura"
+              checkedChildren="Događaj"
+              checked={search}
+              autoFocus="Događaj"
+              style={{ marginRight: '10px' }}
+            />
+
+            {!search && (
+              <Button
+                type="dashed"
+                onClick={() =>
+                  setForm((prevState) => ({ ...prevState, cords: [] }))
+                }
+                style={{ border: 'none' }}
+              >
+                Reset
+              </Button>
+            )}
+          </div>
           {search && (
             <MapGL
               ref={mapRef}

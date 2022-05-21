@@ -17,6 +17,12 @@
   justify-content: center;
 }
 
+.flex-align {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
 .marker {
   width: 0;
   height: 0;
