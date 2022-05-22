@@ -18,6 +18,10 @@ const Home: React.FC<Props> = () => {
     getEvents();
   }, []);
 
+  useEffect(() => {
+    console.log(recentEvents);
+  });
+
   return (
     <div>
       <Banner />

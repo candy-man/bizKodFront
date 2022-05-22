@@ -46,6 +46,10 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
     desc: '',
   };
 
+  useEffect(() => {
+    console.log(event);
+  });
+
   return (
     <div className="eventCard">
       <div className="eventCard-left">
@@ -82,6 +86,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
                 Odjavi se
               </Button>
             )}
+            //ako je admin ovako
             {state === 'awaiting' && (
               <Button
                 style={{ marginBlock: '2px' }}
@@ -100,12 +105,12 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
                 Otkaži
               </Button>
             )}
+            //ako je evenet live
             {state === 'live' && (
               <Button type="primary" onClick={signUpForEvent}>
                 Prijavi se
               </Button>
             )}
-
             <Button type="ghost" onClick={changeVisible}>
               Detalji
             </Button>
@@ -119,6 +124,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
         visible={visible}
         loading={loading}
         data={data}
+        event={event}
       ></EventViewModal>
     </div>
   );
