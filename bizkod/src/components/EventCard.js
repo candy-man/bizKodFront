@@ -1,8 +1,8 @@
-import { Button, Select } from 'antd';
-import React, { useEffect, useState } from 'react';
-import EventViewModal from '../modals/EventViewModal';
-import { UserOutlined } from '@ant-design/icons';
-import { Events } from '../interfaces/interfaces';
+import { Button, Select, Tooltip } from "antd";
+import React, { useEffect, useState } from "react";
+import EventViewModal from "../modals/EventViewModal";
+import { UserOutlined } from "@ant-design/icons";
+import { Events } from "../interfaces/interfaces";
 
 // interface EventCardProps {
 //   event: Events;
@@ -24,8 +24,18 @@ const EventCard = ({ event, state }) => {
     setLoading(!loading);
   };
 
-  const signUpForEvent = () => {
-    // request prijavi se za event
+  const signUpForEvent = async () => {
+    var token = JSON.parse(sessionStorage.getItem("token"));
+
+    const response = await fetch(
+      `http://localhost:5000/api/user/userevent?eventId=${event.id}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer  ${token}`,
+        },
+      }
+    );
   };
 
   function uuidv4() {
@@ -95,9 +105,12 @@ const EventCard = ({ event, state }) => {
     })
   }, [event])
 
-  useEffect(() => {
-    console.log(event);
-  });
+  // let data = {
+  //   title: event ? event.name : "Event",
+  //   startDate: event ? new Date(event.startDate) : new Date(),
+  //   endDate: event ? new Date(event.startDate) : new Date(),
+  //   desc: "",
+  // };
 
   return (
     <div className="eventCard">
@@ -113,7 +126,10 @@ const EventCard = ({ event, state }) => {
           <div>
             <span>Naziv:</span>
             <span>
-              5 <UserOutlined />
+              {event.users.length}{" "}
+              <Tooltip title={event.users.join(", ")}>
+                <UserOutlined />
+              </Tooltip>
             </span>
           </div>
           <h2>{event.name}</h2>
@@ -122,40 +138,38 @@ const EventCard = ({ event, state }) => {
           <div className="eventCard-right-info flex-column-jcenter">
             <div>
               <span>Datum:</span>
-              <h4>{data?.startDate.toLocaleDateString('sr-SR')}</h4>
+              <h4>{data?.startDate.toLocaleDateString("sr-SR")}</h4>
             </div>
             <div>
               <span>Tip:</span>
-              <h4>{event.eventType}</h4>
+              <h4>{event.typeName}</h4>
             </div>
           </div>
           <div className="eventCard-buttonContainer flex-column-jcenter">
-            {state === 'selected' && (
+            {state === "selected" && (
               <Button type="primary" onClick={signOutOfEvent}>
                 Odjavi se
               </Button>
             )}
-            //ako je admin ovako
-            {state === 'awaiting' && (
+            {state === "awaiting" && (
               <Button
-                style={{ marginBlock: '2px' }}
+                style={{ marginBlock: "2px" }}
                 type="primary"
                 onClick={acceptEvent}
               >
                 Prihvati
               </Button>
             )}
-            {state === 'awaiting' && (
+            {state === "awaiting" && (
               <Button
-                style={{ marginBlock: '2px' }}
+                style={{ marginBlock: "2px" }}
                 danger
                 onClick={cancelEvent}
               >
                 Otkaži
               </Button>
             )}
-            //ako je evenet live
-            {state === 'live' && (
+            {state === "live" && (
               <Button type="primary" onClick={signUpForEvent}>
                 Prijavi se
               </Button>
@@ -172,8 +186,7 @@ const EventCard = ({ event, state }) => {
         changeLoading={changeLoading}
         visible={visible}
         loading={loading}
-        data={data}
-        event={event}
+        data={event}
       ></EventViewModal>}
     </div>
   );

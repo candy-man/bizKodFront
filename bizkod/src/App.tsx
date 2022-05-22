@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 // import { EventViewModal } from './modals/EventViewModal';
 import EventCard from "./components/EventCard";
@@ -9,8 +9,9 @@ import useToken from "./components/Login/UseToken";
 import Login from "./components/Login/Login";
 
 function App() {
-  const [show, setShow] = useState(true);
   const { token, setToken } = useToken();
+
+  useEffect(() => {}, []);
 
   if (!token) {
     return <Login setToken={setToken} />;
@@ -19,7 +20,6 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <FormModal setShow={setShow} show={show} hasData={false} />
       {/* <Routes /> */}
       <Routes />
     </div>

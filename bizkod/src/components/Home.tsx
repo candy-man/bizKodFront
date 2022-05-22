@@ -1,8 +1,8 @@
-import { getEventListeners } from 'events';
-import React, { useEffect, useState } from 'react';
-import { Events } from '../interfaces/interfaces';
-import Banner from './Banner';
-import EventListComponent from './EventsListComponent';
+import { getEventListeners } from "events";
+import React, { useEffect, useState } from "react";
+import { Events } from "../interfaces/interfaces";
+import Banner from "./Banner";
+import EventListComponent from "./EventsListComponent";
 
 interface Props {}
 
@@ -11,7 +11,7 @@ const Home: React.FC<Props> = () => {
 
   useEffect(() => {
     const getEvents = async () => {
-      await fetch('http://bizkodapi.local/api/Events')
+      await fetch("http://localhost:5000/api/Events")
         .then((res) => res.json())
         .then((data) => setEvents(data));
     };

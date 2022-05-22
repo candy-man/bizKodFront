@@ -5,7 +5,7 @@ import { FC, useState } from "react";
 import "./Login.css";
 
 async function loginUser(credentials: { username: string; password: string }) {
-  return fetch("http://bizkodapi.local/api/user/login", {
+  return fetch("http://localhost:5000/api/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,8 +23,7 @@ const Login: FC<loginProps> = ({ setToken }) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const token = await loginUser(formValues);
-    console.log(token);
-    setToken(token);
+    setToken(token.token);
   };
 
   return (

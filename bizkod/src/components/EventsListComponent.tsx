@@ -1,6 +1,6 @@
-import React from 'react';
-import { Events } from '../interfaces/interfaces';
-import EventCard from './EventCard';
+import React from "react";
+import { Events } from "../interfaces/interfaces";
+import EventCard from "./EventCard";
 
 interface EventListProps {
   eventsList: Events[];

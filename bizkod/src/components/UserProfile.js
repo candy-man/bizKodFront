@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import EventCard from '../components/EventCard';
+import EventCard from './EventCard';
 import { useLocation, useParams } from 'react-router-dom';
 
 import EventListComponent from './EventsListComponent';
@@ -16,39 +16,33 @@ const dummyUserData = [
       {
         id: '33333',
         name: 'Stopama grada kroz period secesije',
-        startDate: '2022-03-22',
+        startDate: '22.03.2022.',
         endDate: 'ssss',
         location: 'ssss',
         eventTypeId: 'icvkjhdskfl',
         eventType: 'Tura',
         status: 'pending',
-        longitude:'0',
-        latitude:'0',
       },
       {
         id: '4444',
         name: 'Vinska tura',
-        startDate: '2022-03-22',
+        startDate: '22.03.2022.',
         endDate: 'ssss',
         location: 'ssss',
         eventTypeId: 'icvkjhdskfl',
         eventType: 'Tura',
         status: 'approved',
-        longitude:'0',
-        latitude:'0',
       },
     ],
     users: [],
   },
 ];
 
-interface props {}
-
-const UserProfile: React.FC<props> = ({}) => {
+const UserProfile = ({}) => {
   let { userId } = useParams();
 
-  const [pendingEvents, setPendingEvents] = useState<Events[]>([]);
-  const [selectedEvents, setSelectedEvents] = useState<Events[]>([]);
+  const [pendingEvents, setPendingEvents] = useState<[]>([]);
+  const [selectedEvents, setSelectedEvents] = useState<[]>([]);
 
   useEffect(() => {
     let pending = [

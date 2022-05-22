@@ -22,7 +22,7 @@ const layout = {
 };
 const MAPBOX_TOKEN =
   'pk.eyJ1Ijoic2FzYWJpemtvZCIsImEiOiJjbDNnN2pwaWEwemU5M2ZwcnJyYmlkejI2In0.DtWqRLwaTKgAlUuQOenTUA';
-const FormModal = ({ show, setShow, hasData }) => {
+const FormModal = ({ show, setShow }) => {
   const [form, setForm] = useState({
     id: '',
     name: '',
@@ -103,11 +103,9 @@ const FormModal = ({ show, setShow, hasData }) => {
     [handleViewportChange]
   );
 
-  useEffect(() => {
-    fetch('http://bizkodapi.local/api/Events/eventTypes')
-      .then((res) => res.json())
-      .then((e) => setEventTypes(e));
-  }, []);
+  useEffect(()=>{
+      fetch('http://localhost:5000/api/Events/eventTypes').then(res => res.json()).then(e => setEventTypes(e))
+  },[])
 
   useEffect(() => {
     if (search) {
@@ -128,41 +126,44 @@ const FormModal = ({ show, setShow, hasData }) => {
       ).toString(16)
     );
   }
-  const handleSubmit = async () => {
-    const handleSubmit = async () => {
-      var userId = uuidv4();
-      var uploadedName = await handleUpload(userId);
-      var toPost = {
-        id: userId,
-        name: form.name,
-        description: form.description,
-        startDate: form.startDate,
-        endDate: form.endDate,
-        originalFileName: image.name,
-        uploadFileName: uploadedName,
-        status: 'Pending',
-        longtitude: form.cords[0]?.latitude.toString(),
-        latitude: form.cords[0]?.longtitude.toString(),
-        type: form.type,
-      };
-      console.log(toPost);
-      await fetch(`http://bizkodapi.local/api/Events/post`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(toPost),
-      });
-    };
-  };
-  const handleUpload = async (userId) => {
+ 
+  const handleSubmit = async ()=>{
+
+    var userId = uuidv4();
+    var uploadedName = await handleUpload(userId);
+    var toPost = {
+      id: userId,
+      name: form.name,
+      description: form.description,
+      startDate: form.startDate,
+      endDate: form.endDate,
+      originalFileName: image.name,
+      uploadFileName: uploadedName,
+      status: "Pending",
+      longtitude:form.cords[0]?.latitude.toString() ,
+      latitude: form.cords[0]?.longtitude.toString(),
+      type: form.type
+    }
+    console.log(toPost);
+    await fetch(`http://localhost:5000/api/Events`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(toPost),
+    });
+    
+  }
+  const handleUpload = async (userId)=> {
+    var token = sessionStorage.getItem("token");
     var data = new FormData();
     data.append('file', image);
-    var res = await fetch(
-      `http://bizkodapi.local/api/Events/uploadFile?eventId=${userId}`,
-      {
-        method: 'POST',
-        body: data,
-      }
-    );
+    //imagesam samo ubacio da ne izabcuje error
+    var res = await fetch(`http://localhost:5000/api/Events/uploadFile?eventId=${userId}`, {
+      headers: {
+        'Authorization':`Token ${token}`
+      },
+      method: 'POST',
+      body: data,
+    });
     return res.text();
   };
   const handleFile = (e) => {
@@ -183,15 +184,16 @@ const FormModal = ({ show, setShow, hasData }) => {
     }));
   };
 
+  
   return (
     <div>
       <Modal
-        title={hasData ? 'Izmeni dogadjaj' : 'Dodaj dogadjaj'}
+        title={ 'Dodaj dogadjaj'}
         centered
         visible={show}
         onOk={handleSubmit}
         onCancel={() => setShow(!show)}
-        okText={hasData ? 'Izmeni' : 'Kreiraj'}
+        okText={  'Kreiraj'}
         cancelText="Otkaži"
       >
         <Form {...layout} onFinish={handleSubmit}>
@@ -207,19 +209,16 @@ const FormModal = ({ show, setShow, hasData }) => {
           </Form.Item>
           <Form.Item label="Tip:" required>
             <Select
-              name="type"
-              showSearch
-              placeholder="Izaberi tip dogadjaja..."
-              onChange={(e) => handleSetType(e)}
-            >
-              {eventTypes.map((e) => {
-                return (
-                  <Option key={e.eventTypeId} value={e.eventTypeId}>
-                    {e.name}
-                  </Option>
-                );
-              })}
-            </Select>
+                name="type"
+                showSearch
+                placeholder="Izaberi tip dogadjaja..."
+                onChange={(e)=>handleSetType(e)}
+              >
+              {eventTypes?.map(e =>{
+                return <Option key={e.eventTypeId} value={e.eventTypeId}>{e.name}</Option>
+              } )}
+              
+              </Select>
           </Form.Item>
           <Form.Item label="Opis:" required>
             <Input.TextArea
