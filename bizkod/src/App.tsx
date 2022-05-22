@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <FormModal setShow={setShow} show={show} hasData={true} />
+      <FormModal setShow={setShow} show={show} hasData={false} />
       {/* <Routes /> */}
       <Routes />
     </div>
