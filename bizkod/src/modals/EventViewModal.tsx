@@ -85,21 +85,17 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
     changeVisible();
   };
 
-// let year = new Intl.DateTimeFormat('sr', { year: 'numeric' }).format(data.startDate);
-// let month = new Intl.DateTimeFormat('sr', { month: 'numeric' }).format(data.startDate);
-// let day = new Intl.DateTimeFormat('sr', { day: '2-digit' }).format(data.startDate);
-let date=data.startDate.toLocaleString('sr-SR')
+let date = data.startDate.toLocaleDateString('sr-SR');
 let secondDate;
-if(data.startDate.getTime()!==data.endDate.getTime()){
-  secondDate=data.endDate.toLocaleString('sr-SR')
+if(data.startDate.getTime() !== data.endDate.getTime()){
+  secondDate = data.endDate.toLocaleDateString('sr-SR');
 }
     // const { visible, loading } = this.state;
     return (
       <>
-       
         <Modal
           visible={visible}
-          title="Dogadjaj"
+          title="Događaj"
           onOk={handleOk}
           onCancel={handleCancel}
           width={700}

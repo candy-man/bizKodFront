@@ -108,7 +108,11 @@ const FormModal = ({ show, setShow, hasData }) => {
         ],
       }));
     }
-  }, [viewport]);
+  }, []);
+
+  useEffect(() => {
+    console.log(form);
+  }, [form]);
 
   useEffect(() => {
     console.log(markers);

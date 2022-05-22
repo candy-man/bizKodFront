@@ -67,5 +67,6 @@
 
 .logoPicture {
   padding: 10px;
-  height: -webkit-fill-available;
+  height: 80px;
+  cursor: pointer;
 }
