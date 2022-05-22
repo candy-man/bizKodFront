@@ -1,9 +1,8 @@
-import { Button } from 'antd';
+import { Button, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import EventViewModal from '../modals/EventViewModal';
 import { UserOutlined } from '@ant-design/icons';
 import { Events } from '../interfaces/interfaces';
-
 
 interface EventCardProps {
   event: Events;
@@ -11,51 +10,58 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
-
-  const [visible, setVisible] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const changeVisible = () => {
     setVisible(!visible);
-  }
+  };
 
   const changeLoading = () => {
     setLoading(!loading);
-  }
+  };
 
   const signUpForEvent = () => {
     // request prijavi se za event
-  }
+  };
   const cancelEvent = () => {
     // request otkazi event
-  } 
-   
+  };
+
+  const accpetEvent = () => {};
+
   const signOutOfEvent = () => {
     // request odjavi se sa eventa
-  }  
+  };
 
   useEffect(() => {
     switch (state) {
-
     }
-  }, [state])
+  }, [state]);
 
-let data={
-  title: event ? event.name : 'Event',
-  startDate: event ? new Date(event.startDate) : new Date(),
-  endDate: event ? new Date(event.startDate) : new Date(),
-  desc: ''
-}
-return (
+  let data = {
+    title: event ? event.name : 'Event',
+    startDate: event ? new Date(event.startDate) : new Date(),
+    endDate: event ? new Date(event.startDate) : new Date(),
+    desc: '',
+  };
+
+  return (
     <div className="eventCard">
       <div className="eventCard-left">
-        <img className='event-img' src="/images/placeholder.png" alt="event image" />
+        <img
+          className="event-img"
+          src="/images/placeholder.png"
+          alt="event image"
+        />
       </div>
       <div className="cardContent">
         <div className="cardTitleContainer">
           <div>
             <span>Naziv:</span>
-            <span>35 <UserOutlined /></span>
+            <span>
+              35 <UserOutlined />
+            </span>
           </div>
           <h2>{event.name}</h2>
         </div>
@@ -70,21 +76,56 @@ return (
               <h4>{event.eventType}</h4>
             </div>
           </div>
-          <div className='eventCard-buttonContainer flex-column-jcenter'>
-            {state === 'selected' ? <Button type="primary" onClick={signOutOfEvent}>Odjavi se</Button> : <></>}
-            {state === 'awaiting' ? <Button type="primary" onClick={cancelEvent}>Otkaži</Button> : <></>}
-            {state === 'home' ? <Button type="primary" onClick={signUpForEvent}>Prijavi se</Button> : <></>}
-            {state === 'events' ? <Button type="primary" onClick={signUpForEvent}>Prijavi se</Button> : <></>}
-            <Button type='ghost' onClick={changeVisible}>Detalji</Button>
+          <div className="eventCard-buttonContainer flex-column-jcenter">
+            {state === 'selected' && (
+              <Button type="primary" onClick={signOutOfEvent}>
+                Odjavi se
+              </Button>
+            )}
+            {state === 'awaiting' && (
+              <Button
+                style={{ marginBlock: '2px' }}
+                type="primary"
+                onClick={cancelEvent}
+              >
+                Prihvati
+              </Button>
+            )}
+            {state === 'awaiting' && (
+              <Button
+                style={{ marginBlock: '2px' }}
+                danger
+                onClick={cancelEvent}
+              >
+                Otkaži
+              </Button>
+            )}
+            {state === 'home' && (
+              <Button type="primary" onClick={signUpForEvent}>
+                Prijavi se
+              </Button>
+            )}
+            {state === 'events' && (
+              <Button type="primary" onClick={signUpForEvent}>
+                Prijavi se
+              </Button>
+            )}
+            <Button type="ghost" onClick={changeVisible}>
+              Detalji
+            </Button>
           </div>
-
         </div>
       </div>
 
-      <EventViewModal changeVisible={changeVisible} changeLoading={changeLoading} visible={visible} loading={loading} data={data}></EventViewModal>
+      <EventViewModal
+        changeVisible={changeVisible}
+        changeLoading={changeLoading}
+        visible={visible}
+        loading={loading}
+        data={data}
+      ></EventViewModal>
     </div>
   );
-
 };
 
 export default EventCard;
