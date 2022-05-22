@@ -1,34 +1,25 @@
-import React, { useRef, useCallback, useState } from 'react';
-import { Modal, Button } from 'antd';
-import { Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { Table } from 'antd';
-import { Collapse, Select } from 'antd';
-import Map, { Marker } from 'react-map-gl';
-import MapGL from 'react-map-gl';
-
-const { Panel } = Collapse;
-const { Option } = Select;
-const genExtra = () => (
-  <>
-    10 <UserOutlined />
-  </>
-);
+import React,{useState, useEffect, useRef, useCallback} from "react";
+import { Modal, Button } from "antd";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { Table } from "antd";
+import { Collapse, Select } from "antd";
+import { computeHeadingLevel } from "@testing-library/react";
+import moment from "moment";
+import Map, { Marker } from "react-map-gl";
+import MapGL from "react-map-gl";
 const MAPBOX_TOKEN =
   'pk.eyJ1Ijoic2FzYWJpemtvZCIsImEiOiJjbDNnN2pwaWEwemU5M2ZwcnJyYmlkejI2In0.DtWqRLwaTKgAlUuQOenTUA';
+const { Panel } = Collapse;
+const { Option } = Select;
+
 
 // interface ViewModalProp {
 //   loading: boolean;
 //   visible: boolean;
 //   changeVisible: () => void;
 //   changeLoading: () => void;
-//   data: {
-//     title: String;
-//     startDate: Date;
-//     endDate: Date;
-//     desc: String;
-//   };
-//   event: object;
+//   data: any;
 // }
 
 const EventViewModal = ({
@@ -37,59 +28,71 @@ const EventViewModal = ({
   changeVisible,
   changeLoading,
   data,
-  event,
+  event
 }) => {
-  const eventData = event;
-
-  console.log(eventData);
-  eventData.latitude = +eventData.latitude;
-  eventData.longtitude = +eventData.longtitude;
-
-  const [viewport, setViewport] = useState({
-    longitude: eventData.longitude,
-    latitude: eventData.latitude,
-    zoom: 10,
-  });
-  const mapRef = useRef();
   const dummyUsers = [
     {
       key: 1,
-      name: 'Marko Markovic',
-      sektor: 'Razvoj',
-      slika: '',
+      name: "Marko Markovic",
+      sektor: "Razvoj",
+      slika: "",
     },
     {
       key: 2,
-      name: 'Sanja Markovic',
-      sektor: 'Prodaja',
-      slika: '',
+      name: "Sanja Markovic",
+      sektor: "Prodaja",
+      slika: "",
     },
     {
       key: 3,
-      name: 'Jovana Markovic',
-      sektor: 'Polovni',
-      slika: '',
+      name: "Jovana Markovic",
+      sektor: "Polovni",
+      slika: "",
     },
   ];
 
+  const genExtra = () => (
+    <>
+      {event?.users?.length} <UserOutlined />
+    </>
+  );
+
+  
+  const mapRef = useRef();
+
+  const eventData = event;
+
+  console.log(event)
+
+  if(eventData){
+    eventData.longtitude = +eventData.longtitude;
+    eventData.latitude= +eventData.latitude;
+  }
+
+  const [viewport, setViewport] = useState({
+    longitude:eventData.latitude,
+    latitude:eventData.longtitude,
+    zoom: 15,
+  });
+
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
       render: (name) => {
         return <h3>{name}</h3>;
       },
     },
     {
-      title: 'Sektor',
-      dataIndex: 'Sektor',
-      key: 'sektor',
+      title: "Sektor",
+      dataIndex: "Sektor",
+      key: "sektor",
     },
     {
-      title: 'Slika',
-      dataIndex: 'slika',
-      key: 'slika',
+      title: "Slika",
+      dataIndex: "slika",
+      key: "slika",
       render: () => {
         return <Avatar size={40} icon={<UserOutlined />} />;
       },
@@ -108,11 +111,12 @@ const EventViewModal = ({
     changeVisible();
   };
 
-  let date = data?.startDate?.toLocaleDateString('sr-SR');
-  let secondDate;
-  if (data?.startDate?.getTime() !== data?.endDate?.getTime()) {
-    secondDate = data?.endDate?.toLocaleDateString('sr-SR');
-  }
+  console.log(data);
+  // let date = data.startDate.toLocaleDateString("sr-SR");
+  // let secondDate;
+  // if (data.startDate.getTime() !== data.endDate.getTime()) {
+  //   secondDate = data.endDate.toLocaleDateString("sr-SR");
+  // }
   // const { visible, loading } = this.state;
 
   const handleViewportChange = useCallback(
@@ -132,8 +136,25 @@ const EventViewModal = ({
     },
     [handleViewportChange]
   );
-console.log(data)
-  console.log(event);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/api/Events/eventTypes")
+  //     .then((res) => res.json())
+  //     .then((e) => setEventTypes(e));
+  // }, []);
+
+  // useEffect(() => {
+  //   if (search) {
+  //     setForm((prevState) => ({
+  //       ...prevState,
+  //       cords: [
+  //         { longtitude: viewport.longitude, latitude: viewport.latitude },
+  //       ],
+  //     }));
+  //   }
+  // }, [viewport]);
+
+  console.log('ev',data)
   return (
     <>
       <Modal
@@ -158,49 +179,52 @@ console.log(data)
       >
         <div>
           <span>Naziv:</span>
-          <h1>{data.name}</h1>
+          <h1>{eventData.name}</h1>
         </div>
         <div>
           <span>Datum i vreme:</span>
           <h3>
-            {date} {secondDate ? `- ${secondDate}` : ''}
+            <>
+              {(data?.startDate).split('T')[0].split('-').reverse().join('.')}
+              {(data?.endDate).split('T')[0].split('-').reverse().join('.') ? `- ${(data?.endDate).split('T')[0].split('-').reverse().join('.')}` : ""}
+            </>
           </h3>
         </div>
         <div>
           <span>Opis:</span>
-          <p>{data.desc}</p>
+          <p>{eventData.description}</p>
         </div>
         <div>
           <span>Mapa:</span>
-          {/* {eventData && typeof eventData.latitude == 'number' && (
-            <Map
-              ref={mapRef}
-              {...viewport}
-              width="100%"
-              height={400}
-              onViewportChange={handleViewportChange}
-              mapboxApiAccessToken={MAPBOX_TOKEN}
-              mapStyle="mapbox://styles/mapbox/streets-v9"
-            >
+          <Map
+            ref={mapRef}
+            {...viewport}
+            width="100%"
+            height={400}
+            onViewportChange={handleViewportChange}
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+            mapStyle="mapbox://styles/mapbox/streets-v9"
+          >
+            {eventData  && (
               <Marker
-                longitude={viewport.longitude}
-                latitude={viewport.latitude}
-              >
-                <img
-                  style={{ width: '30px', height: '30px' }}
-                  src="/images/pin.png"
-                  alt="pin"
-                />
-              </Marker>
-            </Map>
-          )} */}
+              longitude={eventData.latitude}
+              latitude={eventData.longtitude}
+            >
+              <img
+                style={{ width: '30px', height: '30px' }}
+                src="/images/pin.png"
+                alt="pin"
+              />
+            </Marker>
+            )}
+          </Map>
         </div>
         <Collapse defaultActiveKey={[]} expandIconPosition="right">
           <Panel header="Prijavljeno:" key="1" extra={genExtra()}>
             <div>
               <Table
                 pagination={false}
-                dataSource={dummyUsers}
+                dataSource={eventData.users}
                 columns={columns}
               />
             </div>

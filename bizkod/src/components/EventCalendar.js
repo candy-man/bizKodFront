@@ -17,20 +17,12 @@ const EventCalendar= () =>{
     }
     FetchEvents()
   }, [events])
-
-  if(events){
-    events.map((item)=>{
-      item.start=new Date(item.startDate);
-      item.end=new Date(item.endDate);
-      return item
-    });
-  }
   
 
 let eventData={
   name:event?event.name:'',
-  startDate:event?event.start:new Date(),
-  endDate:event?event.end:new Date(),
+  startDate:event?event.start:new Date().toString(),
+  endDate:event?event.end:new Date().toString(),
   desc: '',
   originalFileName:  event?event.uploadFileName:'',
   uploadFileName:  event?event.uploadFileName:'',
@@ -48,7 +40,7 @@ const showDetails=(data)=>{
   setEvent(data)
   setVisible(true)
 }
-console.log(events)
+console.log(eventData)
   return(
     <div style={{ height: 750 }}>
     <Calendar

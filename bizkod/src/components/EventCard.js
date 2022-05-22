@@ -62,7 +62,7 @@ const EventCard = ({ event, state }) => {
       type: event.type,
     };
     console.log(toPost);
-    await fetch(`http://bizkodapi.local/api/Events/post`, {
+    await fetch(`http://localhost:5000/api/Events/post`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(toPost),
@@ -111,13 +111,30 @@ const EventCard = ({ event, state }) => {
   //   endDate: event ? new Date(event.startDate) : new Date(),
   //   desc: "",
   // };
+  let img = "0.jpg";
+  switch(event.typeName){
+    case "Žurka":
+        img = "./images/0.jpg";
+        break;
+        case "Okupljanje":
+          img = "./images/2.jpg";
+          break;
+          case "Obilazak":
+            img = "./images/1.jpg";
+            break;
+            case "Izlet":
+              img = "./images/3.jpeg";
+              break;
+  } 
 
+
+  console.log("ovo" , event);
   return (
     <div className="eventCard">
       <div className="eventCard-left">
         <img
           className="event-img"
-          src="/images/placeholder.png"
+          src= {img}
           alt="event image"
         />
       </div>
@@ -187,6 +204,7 @@ const EventCard = ({ event, state }) => {
         visible={visible}
         loading={loading}
         data={event}
+        event={event}
       ></EventViewModal>}
     </div>
   );

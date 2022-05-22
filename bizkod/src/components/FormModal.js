@@ -142,13 +142,17 @@ const FormModal = ({ show, setShow }) => {
       status: "Pending",
       longtitude:form.cords[0]?.latitude.toString() ,
       latitude: form.cords[0]?.longtitude.toString(),
-      type: form.type
+      type: form.type,
+      typeName: "",
+      users: []
     }
     console.log(toPost);
     await fetch(`http://localhost:5000/api/Events`, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(toPost),
+    }).then(() => {
+      window.location.reload()
     });
     
   }

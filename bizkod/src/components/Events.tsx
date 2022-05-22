@@ -23,20 +23,23 @@ const EventsPage: React.FC<Props> = () => {
 
   return (
     <div>
-      <div className="eventButton">
-        <Button style={{ width: "150px" }} onClick={() => setShow(true)}>
-          Dodaj događaj
-        </Button>
-        <FormModal setShow={setShow} show={show} />
+      <div className="subsection">
+        <div className="eventButton">
+          <Button style={{ width: "150px" }} onClick={() => setShow(true)}>
+            Dodaj događaj
+          </Button>
+          <FormModal setShow={setShow} show={show} />
+        </div>
+        <div className="eventButton">
+          <Button
+            style={{ width: "150px" }}
+            onClick={() => setVisibleModal(true)}
+          >
+            Kalendar događaja
+          </Button>
+        </div>
       </div>
-      <div className="eventButton">
-        <Button
-          style={{ width: "150px" }}
-          onClick={() => setVisibleModal(true)}
-        >
-          Kalendar događaja
-        </Button>
-      </div>
+
       <EventListComponent
         eventsList={allEvents}
         listTitle="Svi događaji"
