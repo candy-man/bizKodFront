@@ -40,6 +40,8 @@ const EventViewModal = ({
   event,
 }) => {
   const eventData = event;
+
+  console.log(eventData);
   eventData.latitude = +eventData.latitude;
   eventData.longtitude = +eventData.longtitude;
 
@@ -170,7 +172,7 @@ const EventViewModal = ({
         </div>
         <div>
           <span>Mapa:</span>
-          {eventData && (
+          {/* {eventData && typeof eventData.latitude == 'number' && (
             <Map
               ref={mapRef}
               {...viewport}
@@ -191,7 +193,7 @@ const EventViewModal = ({
                 />
               </Marker>
             </Map>
-          )}
+          )} */}
         </div>
         <Collapse defaultActiveKey={[]} expandIconPosition="right">
           <Panel header="Prijavljeno:" key="1" extra={genExtra()}>

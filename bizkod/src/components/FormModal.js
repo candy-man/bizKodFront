@@ -1,10 +1,18 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { Modal, DatePicker, Form, Input, Button, Select, notification } from 'antd';
+import {
+  Modal,
+  DatePicker,
+  Form,
+  Input,
+  Button,
+  Select,
+  notification,
+} from 'antd';
 import Map, { Marker } from 'react-map-gl';
 import MapGL from 'react-map-gl';
 import Geocoder from 'react-map-gl-geocoder';
 import { Switch } from 'antd';
-import "./styles.css";
+import './styles.css';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -23,12 +31,12 @@ const FormModal = ({ show, setShow, hasData }) => {
     cords: [],
     longtitude: '',
     latitude: '',
-    uploadedFileName: "",
-    originalFileName: "",
-    status: "Pending",
+    uploadedFileName: '',
+    originalFileName: '',
+    status: 'Pending',
     users: [],
-    startDate: "",
-    endDate: ""
+    startDate: '',
+    endDate: '',
   });
 
   const [eventTypes, setEventTypes] = useState([]);
@@ -95,9 +103,11 @@ const FormModal = ({ show, setShow, hasData }) => {
     [handleViewportChange]
   );
 
-  useEffect(()=>{
-      fetch('http://bizkodapi.local/api/Events/eventTypes').then(res => res.json()).then(e => setEventTypes(e))
-  },[])
+  useEffect(() => {
+    fetch('http://bizkodapi.local/api/Events/eventTypes')
+      .then((res) => res.json())
+      .then((e) => setEventTypes(e));
+  }, []);
 
   useEffect(() => {
     if (search) {
@@ -108,77 +118,70 @@ const FormModal = ({ show, setShow, hasData }) => {
         ],
       }));
     }
-  }, []);
-
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
-
-  useEffect(() => {
-    console.log(markers);
-  }, [markers]);
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
+  }, [viewport]);
 
   function uuidv4() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+      (
+        c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      ).toString(16)
     );
   }
-  const handleSubmit = async ()=>{
-
-    var userId = uuidv4();
-    var uploadedName = await handleUpload(userId);
-    var toPost = {
-      id: userId,
-      name: form.name,
-      description: form.description,
-      startDate: form.startDate,
-      endDate: form.endDate,
-      originalFileName: image.name,
-      uploadFileName: uploadedName,
-      status: "Pending",
-      longtitude:form.cords[0]?.latitude.toString() ,
-      latitude: form.cords[0]?.longtitude.toString(),
-      type: form.type
-    }
-    console.log(toPost);
-    await fetch(`http://bizkodapi.local/api/Events/post`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(toPost),
-    });
-    
-  }
-  const handleUpload = async (userId)=> {
+  const handleSubmit = async () => {
+    const handleSubmit = async () => {
+      var userId = uuidv4();
+      var uploadedName = await handleUpload(userId);
+      var toPost = {
+        id: userId,
+        name: form.name,
+        description: form.description,
+        startDate: form.startDate,
+        endDate: form.endDate,
+        originalFileName: image.name,
+        uploadFileName: uploadedName,
+        status: 'Pending',
+        longtitude: form.cords[0]?.latitude.toString(),
+        latitude: form.cords[0]?.longtitude.toString(),
+        type: form.type,
+      };
+      console.log(toPost);
+      await fetch(`http://bizkodapi.local/api/Events/post`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(toPost),
+      });
+    };
+  };
+  const handleUpload = async (userId) => {
     var data = new FormData();
     data.append('file', image);
-    //imagesam samo ubacio da ne izabcuje error
-    var res = await fetch(`http://bizkodapi.local/api/Events/uploadFile?eventId=${userId}`, {
-      method: 'POST',
-      body: data,
-    });
+    var res = await fetch(
+      `http://bizkodapi.local/api/Events/uploadFile?eventId=${userId}`,
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
     return res.text();
-  }
-  const handleFile = (e) =>{
+  };
+  const handleFile = (e) => {
     setImage(e.target.files[0]);
-  }
-  const handleSetType =(e)=>{
+  };
+  const handleSetType = (e) => {
     setForm((prevState) => ({
       ...prevState,
       type: e,
     }));
-  }
+  };
 
-  const dateChange =(value, dateString)=>{
-
+  const dateChange = (value, dateString) => {
     setForm((prevState) => ({
       ...prevState,
-      startDate:dateString[0] ,
-      endDate:dateString[1]
+      startDate: dateString[0],
+      endDate: dateString[1],
     }));
-  }
+  };
 
   return (
     <div>
@@ -186,16 +189,14 @@ const FormModal = ({ show, setShow, hasData }) => {
         title={hasData ? 'Izmeni dogadjaj' : 'Dodaj dogadjaj'}
         centered
         visible={show}
-        onOk={ handleSubmit}
+        onOk={handleSubmit}
         onCancel={() => setShow(!show)}
         okText={hasData ? 'Izmeni' : 'Kreiraj'}
         cancelText="Otkaži"
       >
         <Form {...layout} onFinish={handleSubmit}>
-        
-
           <Form.Item label="Slika:">
-            <input className='inputCustom' type="file" onChange={handleFile} />
+            <input className="inputCustom" type="file" onChange={handleFile} />
           </Form.Item>
           <Form.Item label="Ime:" required>
             <Input
@@ -206,16 +207,19 @@ const FormModal = ({ show, setShow, hasData }) => {
           </Form.Item>
           <Form.Item label="Tip:" required>
             <Select
-                name="type"
-                showSearch
-                placeholder="Izaberi tip dogadjaja..."
-                onChange={(e)=>handleSetType(e)}
-              >
-              {eventTypes.map(e =>{
-                return <Option key={e.eventTypeId} value={e.eventTypeId}>{e.name}</Option>
-              } )}
-              
-              </Select>
+              name="type"
+              showSearch
+              placeholder="Izaberi tip dogadjaja..."
+              onChange={(e) => handleSetType(e)}
+            >
+              {eventTypes.map((e) => {
+                return (
+                  <Option key={e.eventTypeId} value={e.eventTypeId}>
+                    {e.name}
+                  </Option>
+                );
+              })}
+            </Select>
           </Form.Item>
           <Form.Item label="Opis:" required>
             <Input.TextArea
@@ -225,8 +229,8 @@ const FormModal = ({ show, setShow, hasData }) => {
             />
           </Form.Item>
           <Form.Item label="Datum:">
-          <RangePicker onChange={dateChange} />
-        </Form.Item>
+            <RangePicker onChange={dateChange} />
+          </Form.Item>
           <div className="flex-align">
             <Switch
               onClick={() => {

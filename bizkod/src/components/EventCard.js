@@ -4,12 +4,12 @@ import EventViewModal from '../modals/EventViewModal';
 import { UserOutlined } from '@ant-design/icons';
 import { Events } from '../interfaces/interfaces';
 
-interface EventCardProps {
-  event: Events;
-  state: string;
-}
+// interface EventCardProps {
+//   event: Events;
+//   state: string;
+// }
 
-const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
+const EventCard = ({ event, state }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -21,14 +21,61 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
     setLoading(!loading);
   };
 
-  const signUpForEvent = () => {
-    // request prijavi se za event
-  };
-  const cancelEvent = () => {
-    // request otkazi event
+  const signUpForEvent = () => {};
+
+  function uuidv4() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+      (
+        c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      ).toString(16)
+    );
+  }
+  const acceptEvent = async () => {
+    var userId = uuidv4();
+    var toPost = {
+      id: userId,
+      name: event.name,
+      description: event.description,
+      startDate: event.startDate,
+      endDate: event.endDate,
+      originalFileName: event.originalFileName,
+      uploadFileName: event.uploadFileName,
+      status: 'Odobren',
+      longtitude: event.cords[0]?.latitude.toString(),
+      latitude: event.cords[0]?.longtitude.toString(),
+      type: event.type,
+    };
+    console.log(toPost);
+    await fetch(`http://bizkodapi.local/api/Events/post`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(toPost),
+    });
   };
 
-  const accpetEvent = () => {};
+  const cancelEvent = async () => {
+    var userId = uuidv4();
+    var toPost = {
+      id: userId,
+      name: event.name,
+      description: event.description,
+      startDate: event.startDate,
+      endDate: event.endDate,
+      originalFileName: event.originalFileName,
+      uploadFileName: event.uploadFileName,
+      status: 'Odobren',
+      longtitude: event.cords[0]?.latitude.toString(),
+      latitude: event.cords[0]?.longtitude.toString(),
+      type: event.type,
+    };
+    console.log(toPost);
+    await fetch(`http://bizkodapi.local/api/Events/post`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(toPost),
+    });
+  };
 
   const signOutOfEvent = () => {
     // request odjavi se sa eventa
@@ -91,7 +138,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
               <Button
                 style={{ marginBlock: '2px' }}
                 type="primary"
-                onClick={cancelEvent}
+                onClick={acceptEvent}
               >
                 Prihvati
               </Button>
