@@ -88,7 +88,7 @@ const EventCard = ({ event, state }) => {
 
   useEffect(() => {
     setFormattedData({
-      title: event.name,
+      name: event.name,
       startDate: new Date(event.startDate),
       endDate: new Date(event.endDate),
       desc: event.desc ? event.desc : ''
@@ -167,14 +167,14 @@ const EventCard = ({ event, state }) => {
         </div>
       </div>
 
-      <EventViewModal
+     {data && <EventViewModal
         changeVisible={changeVisible}
         changeLoading={changeLoading}
         visible={visible}
         loading={loading}
-        data={data? data : null}
+        data={data}
         event={event}
-      ></EventViewModal>
+      ></EventViewModal>}
     </div>
   );
 };

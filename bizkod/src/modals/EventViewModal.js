@@ -108,10 +108,10 @@ const EventViewModal = ({
     changeVisible();
   };
 
-  let date = data.startDate.toLocaleDateString('sr-SR');
+  let date = data?.startDate?.toLocaleDateString('sr-SR');
   let secondDate;
-  if (data.startDate.getTime() !== data.endDate.getTime()) {
-    secondDate = data.endDate.toLocaleDateString('sr-SR');
+  if (data?.startDate?.getTime() !== data?.endDate?.getTime()) {
+    secondDate = data?.endDate?.toLocaleDateString('sr-SR');
   }
   // const { visible, loading } = this.state;
 
@@ -132,7 +132,7 @@ const EventViewModal = ({
     },
     [handleViewportChange]
   );
-
+console.log(data)
   console.log(event);
   return (
     <>
