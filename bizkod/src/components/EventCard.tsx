@@ -9,9 +9,19 @@ interface EventCardProps {
   state: string;
 }
 
+interface DataDetails {
+  title: string,
+  startDate: Date,
+  endDate: Date,
+  desc: string
+}
+
 const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
-  const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const [visible, setVisible] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [formattedDate, setFormattedDate] = useState<string>('');
+  const [data, setFormattedData] = useState<DataDetails>();
 
   const changeVisible = () => {
     setVisible(!visible);
@@ -26,25 +36,26 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
   };
   const cancelEvent = () => {
     // request otkazi event
-  };
-
-  const accpetEvent = () => {};
+  }
 
   const signOutOfEvent = () => {
     // request odjavi se sa eventa
-  };
+  }
 
   useEffect(() => {
-    switch (state) {
-    }
-  }, [state]);
-
-  let data = {
-    title: event ? event.name : 'Event',
-    startDate: event ? new Date(event.startDate) : new Date(),
-    endDate: event ? new Date(event.startDate) : new Date(),
-    desc: '',
-  };
+    setFormattedData({
+      title: event.name,
+      startDate: new Date(event.startDate),
+      endDate: new Date(event.endDate),
+      desc: ''
+    })
+    // let data = {
+    //   title: event.name,
+    //   startDate: new Date(),
+    //   endDate: new Date(),
+    //   desc: ''
+    // }  
+  }, [event])
 
   return (
     <div className="eventCard">
@@ -60,7 +71,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
           <div>
             <span>Naziv:</span>
             <span>
-              35 <UserOutlined />
+              5 <UserOutlined />
             </span>
           </div>
           <h2>{event.name}</h2>
@@ -69,7 +80,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
           <div className="eventCard-right-info flex-column-jcenter">
             <div>
               <span>Datum:</span>
-              <h4>{data.startDate.toLocaleDateString('sr-SR')}</h4>
+              <h4>{data?.startDate.toLocaleDateString('sr-SR')}</h4>
             </div>
             <div>
               <span>Tip:</span>
@@ -118,7 +129,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
         changeLoading={changeLoading}
         visible={visible}
         loading={loading}
-        data={data}
+        data={data? data : null}
       ></EventViewModal>
     </div>
   );

@@ -7,23 +7,19 @@ import { Collapse, Select } from 'antd';
 
 const { Panel } = Collapse;
 const { Option } = Select;
-const genExtra = () => (
-  <>
-    10 <UserOutlined />
-  </>
-);
+
 
 interface ViewModalProp {
   loading: boolean,
   visible: boolean,
   changeVisible: () => void,
   changeLoading: () => void,
-  data:{
+  data: {
     title: String
     startDate: Date,
     endDate: Date,
     desc: String,
-  }
+  } | null
 }
 
 const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisible, changeLoading, data }) => {
@@ -60,7 +56,7 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
     },
     {
       title: 'Sektor',
-      dataIndex: 'Sektor',
+      dataIndex: 'sektor',
       key: 'sektor',
     },
     {
@@ -72,6 +68,12 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
       },
     },
   ];
+
+  const genExtra = () => (
+    <>
+      {dummyUsers?.length ? dummyUsers?.length : 0} <UserOutlined />
+    </>
+  );
 
   const handleOk = () => {
     changeLoading();
@@ -85,58 +87,62 @@ const EventViewModal: React.FC<ViewModalProp> = ({ loading, visible, changeVisib
     changeVisible();
   };
 
-let date = data.startDate.toLocaleDateString('sr-SR');
-let secondDate;
-if(data.startDate.getTime() !== data.endDate.getTime()){
-  secondDate = data.endDate.toLocaleDateString('sr-SR');
-}
-    // const { visible, loading } = this.state;
-    return (
-      <>
-        <Modal
-          visible={visible}
-          title="Događaj"
-          onOk={handleOk}
-          onCancel={handleCancel}
-          width={700}
-          footer={[
-            <Button key="back" onClick={handleCancel}>
-              Zatvori
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-              Prijavi se
-            </Button>
-          ]}
+  // let year = new Intl.DateTimeFormat('sr', { year: 'numeric' }).format(data.startDate);
+  // let month = new Intl.DateTimeFormat('sr', { month: 'numeric' }).format(data.startDate);
+  // let day = new Intl.DateTimeFormat('sr', { day: '2-digit' }).format(data.startDate);
+  let date = data?.startDate.toLocaleString('sr-SR')
+  let secondDate;
+  if (data?.startDate.getTime() !== data?.endDate.getTime()) {
+    secondDate = data?.endDate.toLocaleString('sr-SR')
+  }
+  // const { visible, loading } = this.state;
+  return (
+    <>
+
+      <Modal
+        visible={visible}
+        title="Dogadjaj"
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={700}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Zatvori
+          </Button>,
+          <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+            Prijavi se
+          </Button>
+        ]}
+      >
+        <div>
+          <span>Naziv:</span>
+          <h1>{data?.title ? data?.title : '-'}</h1>
+        </div>
+        <div>
+          <span>Datum i vreme:</span>
+          <h3>{date} {secondDate ? `- ${secondDate}` : ''}</h3>
+        </div>
+        <div>
+          <span>Opis:</span>
+          <p>{data?.desc ? data?.desc : '-'}</p>
+        </div>
+        <div>
+          <span>Mapa:</span>
+          <p>XXX</p>
+        </div>
+        <Collapse
+          defaultActiveKey={[]}
+          expandIconPosition='right'
         >
-          <div>
-            <span>Naziv:</span>
-            <h1>{data.title}</h1>
-          </div>
-          <div>
-            <span>Datum i vreme:</span>
-            <h3>{date} {secondDate?`- ${secondDate}`:''}</h3>
-          </div>
-          <div>
-            <span>Opis:</span>
-            <p>{data.desc}</p>
-          </div>
-          <div>
-            <span>Mapa:</span>
-            <p>XXX</p>
-          </div>
-          <Collapse
-            defaultActiveKey={[]}
-            expandIconPosition='right'
-          >
-            <Panel header="Prijavljeno:" key="1" extra={genExtra()}>
-              <div>
-                <Table pagination={false} dataSource={dummyUsers} columns={columns}/>
-              </div>
-            </Panel>
-          </Collapse>
-        </Modal>
-      </>
-    );
+          <Panel header="Prijavljeno:" key="1" extra={genExtra()} disabled={dummyUsers.length === 0}>
+            <div>
+              <Table pagination={false} dataSource={dummyUsers} columns={columns} />
+            </div>
+          </Panel>
+        </Collapse>
+      </Modal>
+    </>
+  );
 }
 
 export default EventViewModal;
