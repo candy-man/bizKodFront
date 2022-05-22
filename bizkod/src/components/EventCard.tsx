@@ -100,16 +100,12 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
                 Otkaži
               </Button>
             )}
-            {state === 'home' && (
+            {state === 'live' && (
               <Button type="primary" onClick={signUpForEvent}>
                 Prijavi se
               </Button>
             )}
-            {state === 'events' && (
-              <Button type="primary" onClick={signUpForEvent}>
-                Prijavi se
-              </Button>
-            )}
+
             <Button type="ghost" onClick={changeVisible}>
               Detalji
             </Button>
