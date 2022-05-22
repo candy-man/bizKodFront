@@ -12,7 +12,7 @@ const EventCalendar= () =>{
   useEffect(() => {
     async function FetchEvents() {
       if(!events){
-        await fetch('http://bizkodapi.local/api/Events/calendar').then(res => res.json()).then(setEvents)
+        await fetch('http://bizkodapi.local/api/Events').then(res => res.json()).then(setEvents)
       }
     }
     FetchEvents()
@@ -94,18 +94,24 @@ const EventCalendar= () =>{
 
   if(events){
     events.map((item)=>{
-      item.start=new Date(item.start);
-      item.end=new Date(item.end);
+      item.start=new Date(item.startDate);
+      item.end=new Date(item.endDate);
       return item
     });
   }
   
 
 let eventData={
-  title:event?event.title:'',
+  name:event?event.name:'',
   startDate:event?event.start:new Date(),
   endDate:event?event.end:new Date(),
-  desc:event?event.desc:''
+  desc: '',
+  originalFileName:  event?event.uploadFileName:'',
+  uploadFileName:  event?event.uploadFileName:'',
+  status:  event?event.status:'',
+  longtitude:  event?event.longtitude:'',
+  latitude: event?event.latitude:'',
+   type: event?event.type:'',
 }
 
 const hideModal=()=>{
@@ -116,21 +122,18 @@ const showDetails=(data)=>{
   setEvent(data)
   setVisible(true)
 }
+console.log(events)
   return(
-
-
-
-    
     <div style={{ height: 750 }}>
     <Calendar
-    style={{marginRight:'15px'}}
+      style={{marginRight:'15px'}}
       localizer={momentLocalizer(moment)}
       events={events||[]}
       step={60}
       defaultDate={new Date()}
       onSelectEvent={(value)=>showDetails(value)}
     />
-    <EventViewModal data={eventData} loading={false} visible={visible} changeLoading={()=>{}} changeVisible={hideModal}/>
+    {eventData&&<EventViewModal data={eventData} event={eventData} loading={false} visible={visible} changeLoading={()=>{}} changeVisible={hideModal}/>}
   </div>
   )
 }

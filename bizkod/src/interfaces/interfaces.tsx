@@ -7,5 +7,7 @@ export interface Events {
     location: string,
     eventTypeId: string,
     eventType: string,
-    status: string
+    status: string,
+    longitude:string,
+    latitude:string,
 }

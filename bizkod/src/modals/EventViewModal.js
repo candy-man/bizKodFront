@@ -158,7 +158,7 @@ const EventViewModal = ({
       >
         <div>
           <span>Naziv:</span>
-          <h1>{data.title}</h1>
+          <h1>{data.name}</h1>
         </div>
         <div>
           <span>Datum i vreme:</span>

@@ -22,6 +22,8 @@ const dummyUserData = [
         eventTypeId: 'icvkjhdskfl',
         eventType: 'Tura',
         status: 'pending',
+        longitude:'0',
+        latitude:'0',
       },
       {
         id: '4444',
@@ -32,6 +34,8 @@ const dummyUserData = [
         eventTypeId: 'icvkjhdskfl',
         eventType: 'Tura',
         status: 'approved',
+        longitude:'0',
+        latitude:'0',
       },
     ],
     users: [],
