@@ -16,7 +16,7 @@ const dummyUserData = [
       {
         id: '33333',
         name: 'Stopama grada kroz period secesije',
-        startDate: '22.03.2022.',
+        startDate: '2022-03-22',
         endDate: 'ssss',
         location: 'ssss',
         eventTypeId: 'icvkjhdskfl',
@@ -26,7 +26,7 @@ const dummyUserData = [
       {
         id: '4444',
         name: 'Vinska tura',
-        startDate: '22.03.2022.',
+        startDate: '2022-03-22',
         endDate: 'ssss',
         location: 'ssss',
         eventTypeId: 'icvkjhdskfl',

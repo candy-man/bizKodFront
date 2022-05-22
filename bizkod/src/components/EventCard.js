@@ -4,24 +4,17 @@ import EventViewModal from '../modals/EventViewModal';
 import { UserOutlined } from '@ant-design/icons';
 import { Events } from '../interfaces/interfaces';
 
-interface EventCardProps {
-  event: Events;
-  state: string;
-}
+// interface EventCardProps {
+//   event: Events;
+//   state: string;
+// }
 
-interface DataDetails {
-  title: string,
-  startDate: Date,
-  endDate: Date,
-  desc: string
-}
 
-const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
+const EventCard = ({ event, state }) => {
 
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [formattedDate, setFormattedDate] = useState<string>('');
-  const [data, setFormattedData] = useState<DataDetails>();
+  const [data, setFormattedData] = useState(null);
 
   const changeVisible = () => {
     setVisible(!visible);
@@ -34,9 +27,60 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
   const signUpForEvent = () => {
     // request prijavi se za event
   };
-  const cancelEvent = () => {
-    // request otkazi event
+
+  function uuidv4() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+      (
+        c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      ).toString(16)
+    );
   }
+  const acceptEvent = async () => {
+    var userId = uuidv4();
+    var toPost = {
+      id: userId,
+      name: event.name,
+      description: event.description,
+      startDate: event.startDate,
+      endDate: event.endDate,
+      originalFileName: event.originalFileName,
+      uploadFileName: event.uploadFileName,
+      status: 'Odobren',
+      longtitude: event.cords[0]?.latitude.toString(),
+      latitude: event.cords[0]?.longtitude.toString(),
+      type: event.type,
+    };
+    console.log(toPost);
+    await fetch(`http://bizkodapi.local/api/Events/post`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(toPost),
+    });
+  };
+
+  const cancelEvent = async () => {
+    var userId = uuidv4();
+    var toPost = {
+      id: userId,
+      name: event.name,
+      description: event.description,
+      startDate: event.startDate,
+      endDate: event.endDate,
+      originalFileName: event.originalFileName,
+      uploadFileName: event.uploadFileName,
+      status: 'Odobren',
+      longtitude: event.cords[0]?.latitude.toString(),
+      latitude: event.cords[0]?.longtitude.toString(),
+      type: event.type,
+    };
+    console.log(toPost);
+    await fetch(`http://bizkodapi.local/api/Events/post`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(toPost),
+    });
+  };
 
   const signOutOfEvent = () => {
     // request odjavi se sa eventa
@@ -47,15 +91,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
       title: event.name,
       startDate: new Date(event.startDate),
       endDate: new Date(event.endDate),
-      desc: ''
+      desc: event.desc ? event.desc : ''
     })
-    // let data = {
-    //   title: event.name,
-    //   startDate: new Date(),
-    //   endDate: new Date(),
-    //   desc: ''
-    // }  
   }, [event])
+
+  useEffect(() => {
+    console.log(event);
+  });
 
   return (
     <div className="eventCard">
@@ -93,11 +135,12 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
                 Odjavi se
               </Button>
             )}
+            //ako je admin ovako
             {state === 'awaiting' && (
               <Button
                 style={{ marginBlock: '2px' }}
                 type="primary"
-                onClick={cancelEvent}
+                onClick={acceptEvent}
               >
                 Prihvati
               </Button>
@@ -111,12 +154,12 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
                 Otkaži
               </Button>
             )}
+            //ako je evenet live
             {state === 'live' && (
               <Button type="primary" onClick={signUpForEvent}>
                 Prijavi se
               </Button>
             )}
-
             <Button type="ghost" onClick={changeVisible}>
               Detalji
             </Button>
@@ -130,6 +173,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, state }) => {
         visible={visible}
         loading={loading}
         data={data? data : null}
+        event={event}
       ></EventViewModal>
     </div>
   );
